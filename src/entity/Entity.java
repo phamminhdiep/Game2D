@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 //This store player class,enemy class,Npc class
 
 public class Entity {
-	public int x,y;
+	public int worldX, worldY;
 	public int speed;
 	
 	//BufferedImage describes an image with an accessible buffer of image data

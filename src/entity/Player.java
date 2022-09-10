@@ -14,16 +14,25 @@ public class Player extends Entity{
 	GamePanel gp;
 	KeyHandler keyH;
 	
+	public final int screenX;
+	public final int screenY;
+	
 	public Player(GamePanel gp, KeyHandler keyH) {
+		
 		this.gp = gp;
 		this.keyH = keyH; 
+		//player position
+		screenX = gp.screenWidth/2 - (gp.tileSize/2);
+		screenY = gp.screenHeight/2 - (gp.tileSize/2);
+		
 		setDefaultValues();
 		getPlayerImage();
-	}
+	}  
 	
 	public void setDefaultValues(){
-		x = 100;
-		y = 100;
+		
+		worldX = gp.tileSize * 23;
+		worldY = gp.tileSize * 21;
 		speed = 4;
 		direction = "down";
 	}
@@ -31,22 +40,22 @@ public class Player extends Entity{
 	public void getPlayerImage() {
 		try {
 			
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_up_1.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_up_2.png"));
-			up3 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_up_3.png"));
-			up4 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_up_4.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_down_1.png"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_down_2.png"));
-			down3 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_down_3.png"));
-			down4 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_down_4.png"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_left_1.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_left_2.png"));
-			left3 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_left_3.png"));
-			left4 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_left_4.png"));
-			right1 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_right_1.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_right_2.png"));
-			right3 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_right_3.png"));
-			right4 = ImageIO.read(getClass().getResourceAsStream("/player2/boy_right_4.png"));
+			up1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
+			up2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
+			up3 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_3.png"));
+			up4 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_4.png"));
+			down1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_1.png"));
+			down2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_2.png"));
+			down3 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_3.png"));
+			down4 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_4.png"));
+			left1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_1.png"));
+			left2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_2.png"));
+			left3 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_3.png"));
+			left4 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_4.png"));
+			right1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_1.png"));
+			right2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_2.png"));
+			right3 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_3.png"));
+			right4 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_4.png"));
 			
 		}catch(IOException e) {
 			e.printStackTrace();
@@ -59,19 +68,19 @@ public class Player extends Entity{
 				keyH.leftPressed == true || keyH.rightPressed == true) {
 			if(keyH.upPressed == true) {
 				direction = "up";
-				y -= speed;
+				worldY -= speed;
 			}
 			else if(keyH.downPressed == true) {
 				direction = "down";
-				y += speed;
+				worldY += speed;
 			}
 			else if(keyH.leftPressed == true) {
 				direction = "left";
-				x -= speed;
+				worldX -= speed;
 			}
 			else if(keyH.rightPressed == true) {
 				direction = "right";
-				x += speed;
+				worldX += speed;
 			}
 			// change animation FPS here:
 			spriteCounter++;
@@ -156,6 +165,6 @@ public class Player extends Entity{
 			}
 			break;
 		}
-		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize,null);
+		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize,null);
 	}
 }
