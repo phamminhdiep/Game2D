@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 //This store player class,enemy class,Npc class
@@ -14,4 +15,7 @@ public class Entity {
 	public String direction;
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
+	// collision area
+	public Rectangle solidArea;
+	public boolean collisionOn = false;
 } 

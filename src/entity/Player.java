@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -24,6 +25,15 @@ public class Player extends Entity{
 		//player position
 		screenX = gp.screenWidth/2 - (gp.tileSize/2);
 		screenY = gp.screenHeight/2 - (gp.tileSize/2);
+		
+		
+		//set the collision area for the player
+		solidArea = new Rectangle();  
+		solidArea.x = gp.tileSize/6;
+		solidArea.y = gp.tileSize/3;
+		solidArea.width = gp.tileSize / 3 * 2;
+		solidArea.height = gp.tileSize / 3 * 2;
+		
 		
 		setDefaultValues();
 		getPlayerImage();
@@ -68,20 +78,34 @@ public class Player extends Entity{
 				keyH.leftPressed == true || keyH.rightPressed == true) {
 			if(keyH.upPressed == true) {
 				direction = "up";
-				worldY -= speed;
+				
 			}
 			else if(keyH.downPressed == true) {
 				direction = "down";
-				worldY += speed;
+				
 			}
 			else if(keyH.leftPressed == true) {
 				direction = "left";
-				worldX -= speed;
+				
 			}
 			else if(keyH.rightPressed == true) {
 				direction = "right";
-				worldX += speed;
+				
 			}
+			// check tile collision
+			collisionOn = false;
+			gp.cChecker.checkTile(this);
+			
+			//if collision is false player can move
+			if (collisionOn == false) {
+				switch(direction) {
+				case "up" : worldY -= speed; break;
+				case "down" : worldY += speed; break;
+				case "left" : worldX -= speed; break;
+				case "right" : worldX += speed; break;
+				}
+			}
+			
 			// change animation FPS here:
 			spriteCounter++;
 			if(spriteCounter > 12) {
