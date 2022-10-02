@@ -25,7 +25,8 @@ public class Main {
 		// centered on screen
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
-		
+		// call this metod before startgamethread
+		gamePanel.setupGame();
 		gamePanel.startGameThread();
 		
 	}
